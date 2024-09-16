@@ -1,0 +1,40 @@
+<div class="table__row">
+  <div class="table__element">
+    @if(isLoading){
+    <app-loader />
+    }@else {
+
+    <button class="button" (click)="onClick(element().position)">
+      {{ element().position }}
+    </button>
+    }
+  </div>
+  <div class="table__element">
+    @if(isLoading){
+    <app-loader />
+    }@else {
+    <button class="button" (click)="onClick(element().name)">
+      {{ element().name }}
+    </button>
+
+    }
+  </div>
+  <div class="table__element">
+    @if(isLoading){
+    <app-loader />
+    }@else {
+    <button class="button" (click)="onClick(element().weight)">
+      {{ element().weight }}
+    </button>
+    }
+  </div>
+  <div class="table__element">
+    @if(isLoading){
+    <app-loader />
+    }@else {
+    <button class="button" (click)="onClick(element().symbol)">
+      {{ element().symbol }}
+    </button>
+    }
+  </div>
+</div>

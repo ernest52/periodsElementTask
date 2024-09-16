@@ -1,0 +1,11 @@
+mat-spinner {
+  max-width: 50%;
+  max-height: 50%;
+  margin: 0 auto;
+}
+
+::ng-deep
+  .mat-mdc-progress-spinner
+  .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: #b728a3 !important;
+}

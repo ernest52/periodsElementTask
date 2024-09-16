@@ -1,0 +1,12 @@
+<div>
+  <div class="table__row">
+    @for(header of headers;track $index){
+    <div class="table__element">{{ header }}</div>
+    }
+  </div>
+  @for(element of elements(); track $index){
+
+  <app-element [element]="element" />
+
+  }
+</div>

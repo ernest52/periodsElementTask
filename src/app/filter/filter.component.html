@@ -1,0 +1,13 @@
+<div class="filter">
+  <div class="filter__current">
+    <p>table is ordered by: {{ selector }} in order: {{ mode }}</p>
+  </div>
+  <div class="filter__options">
+    <p (click)="changeMode()">{{ mode }}</p>
+    <select (change)="changeSelector($event)">
+      @for(header of headers; track $index){
+      <option [value]="header">{{ header }}</option>
+      }
+    </select>
+  </div>
+</div>
