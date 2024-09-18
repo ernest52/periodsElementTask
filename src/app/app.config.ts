@@ -3,7 +3,19 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { provideStore } from '@ngrx/store';
+import { PeriodElementReducer } from '../store/PeriodElements.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { PeriodElementsEffects } from '../store/PeriodElements.effects';
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideStore({
+      periodElementArray: PeriodElementReducer,
+      // Loader: LoaderReducer,
+    }),
+    provideEffects([PeriodElementsEffects]),
+  ],
 };

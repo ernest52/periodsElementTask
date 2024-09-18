@@ -9,8 +9,8 @@ import { TaskService } from '../../../shared/task.service';
   templateUrl: './element.component.html',
   styleUrl: './element.component.css',
 })
-export class ElementComponent implements OnInit {
-  isLoading = true;
+export class ElementComponent {
+  isLoading!: boolean;
   element = input.required<PeriodicElement>();
   taskService = inject(TaskService);
   headers = this.taskService.getHeaders();
@@ -29,8 +29,9 @@ export class ElementComponent implements OnInit {
   }
   onClick(value: string | number) {
     const output = prompt(`You are going to change value: ${value} into :`);
+
     if (output) {
-      this.taskService.ChangeElement(this.element(), value, output);
+      this.taskService.updateElement(this.element(), value, output);
     }
   }
 }
