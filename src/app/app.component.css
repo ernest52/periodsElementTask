@@ -1,13 +1,14 @@
 :host {
   display: flex;
   /* align-items: baseline; */
+  align-items: center;
   justify-content: center;
   background-color: var(--color-purple-dark);
   color: var(--color-purple);
 }
 @media only screen and (max-width: 900px) {
   :host {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
   }
 }

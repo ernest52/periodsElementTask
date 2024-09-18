@@ -4,6 +4,7 @@
   position: sticky;
   top: 50vh; */
   width: 90vw;
+  min-height: max-content;
   margin: 0 auto;
   padding: 1rem;
   border: 2px solid var(--color-purple);
