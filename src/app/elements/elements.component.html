@@ -1,14 +1,18 @@
 <div>
-  <div class="table__row">
-    @for(header of headers;track $index){
-    <div class="table__element">
-      {{ header }}
-    </div>
+  <div
+    class="mx-auto my-4 grid max-w-[90vw] grid-cols-[100px_100px_100px_100px] grid-rows-[50px] gap-1 min-[0px]:max-[220px]:grid-cols-[40px_40px_40px_40px] min-[220px]:max-[300px]:grid-cols-[50px_50px_50px_50px] min-[300px]:max-[450px]:grid-cols-[70px_70px_70px_70px] md:w-[50vw] md:grid-cols-[1fr_1fr_1fr_1fr]"
+  >
+    @for (header of headers; track $index) {
+      <div
+        class="flex flex-row items-center justify-center font-bold uppercase"
+        [matTooltip]="header"
+        aria-label="on hover shows full name of column"
+      >
+        <span class="font__grow"> {{ header }}</span>
+      </div>
     }
   </div>
-  @for(element of elements$ |async; track $index){
-
-  <app-element [element]="element" />
-
+  @for (element of elements$ | async; track $index) {
+    <app-element [element]="element" />
   }
 </div>

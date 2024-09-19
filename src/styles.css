@@ -1,16 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-:root {
-  --color-black: black;
-  --color-black-light: #141010;
-  --color-purple: #f70776;
-  --color-purple-light: #c3195d;
-  --color-purple-dark: #680747;
-  --color-pink: pink;
-  font-size: 62.5%;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .font__grow {
+    @apply text-[10px] min-[0px]:max-[230px]:text-[8px] sm:text-sm md:text-base;
+  }
+  .button__cell {
+    @apply block h-[100%] w-[100%] cursor-pointer border-2 border-rose-800 bg-pink-300 text-purple-900;
+  }
+  .centered {
+    @apply flex flex-row items-center justify-center;
+  }
 }
 
+/* :root {
+  font-size: 62.5%;
+}
 html {
-  /* background-color: var(--color-black); */
+ 
   font-size: 1rem;
   box-sizing: border-box;
 }
@@ -20,44 +29,4 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
-}
-
-.table__row {
-  width: max-content;
-  display: grid;
-  grid-template-columns: repeat(4, 100px);
-  grid-template-rows: 50px;
-  grid-gap: 2px;
-  margin: 1rem 0;
-  background-color: var(--color-pink);
-}
-
-@media only screen and (max-width: 420px) {
-  .table__row {
-    grid-template-columns: repeat(4, 70px);
-  }
-}
-@media only screen and (max-width: 300px) {
-  .table__row {
-    grid-template-columns: repeat(4, 50px);
-  }
-}
-.table__element {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  text-transform: uppercase;
-  font-size: 1.5rem;
-}
-@media only screen and (max-width: 400px) {
-  :root {
-    font-size: 50%;
-  }
-}
-@media only screen and (max-width: 900px) {
-  .table__element {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-}
+} */

@@ -1,12 +1,21 @@
-<div class="filter">
-  <div class="filter__current">
+<div
+  class="font__grow mx-auto my-0 border-2 border-pink-600 bg-pink-300 p-4 text-rose-700 md:sticky md:top-[50vh] md:ml-4 md:w-[40vw]"
+>
+  <div
+    class="mx-[auto] my-4 w-[max-content] bg-purple-900 p-4 text-center text-slate-300 min-[0px]:max-[300px]:w-[70vw] md:w-[35vw]"
+  >
     <p>table is ordered by: {{ selector }} in order: {{ mode }}</p>
   </div>
-  <div class="filter__options">
-    <p (click)="changeMode()">{{ mode }}</p>
-    <select (change)="changeSelector($event)">
-      @for(header of headers; track $index){
-      <option [value]="header">{{ header }}</option>
+  <div class="flex cursor-pointer flex-row items-center justify-center">
+    <p class="w-[10vw] text-center" (click)="changeMode()">
+      {{ mode }}
+    </p>
+    <select
+      class="ml-4 border-2 border-red-500 bg-transparent p-1 focus:outline-none focus-visible:outline-none"
+      (change)="changeSelector($event)"
+    >
+      @for (header of headers; track $index) {
+        <option [value]="header">{{ header }}</option>
       }
     </select>
   </div>
