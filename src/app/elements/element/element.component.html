@@ -1,40 +1,53 @@
-<div class="table__row">
-  <div class="table__element">
-    @if(isLoading){
-    <app-loader />
-    }@else {
-
-    <button class="button" (click)="onClick(element().position)">
-      {{ element().position }}
-    </button>
-    }
+<div
+  class="my-4 grid max-w-[90%] grid-cols-[1fr_1fr_1fr_1fr] grid-rows-[50px] gap-1 bg-pink-400 md:w-[50vw]"
+>
+  <div class="flex flex-row items-center justify-center font-bold uppercase">
+    <!-- @if (isLoading) {
+      <app-loader class="button__cell" />
+    } @else {
+      <button
+        class="font__grow button__cell"
+        (click)="onClick(element().position)"
+      >
+        {{ element().position }}
+      </button>
+    } -->
+    <app-loader class="button__cell mx-auto max-w-[50%] bg-red-800" />
   </div>
-  <div class="table__element">
-    @if(isLoading){
-    <app-loader />
-    }@else {
-    <button class="button" (click)="onClick(element().name)">
-      {{ element().name }}
-    </button>
-
-    }
+  <div class="flex flex-row items-center justify-center font-bold uppercase">
+    <app-loader class="button__cell mx-auto max-w-[50%] bg-red-800" />
+    <!-- @if (isLoading) {
+      <app-loader class="button__cell" />
+    } @else {
+      <button class="font__grow button__cell" (click)="onClick(element().name)">
+        {{ element().name }}
+      </button>
+    } -->
   </div>
-  <div class="table__element">
-    @if(isLoading){
-    <app-loader />
-    }@else {
-    <button class="button" (click)="onClick(element().weight)">
-      {{ element().weight }}
-    </button>
-    }
+  <div class="flex flex-row items-center justify-center font-bold uppercase">
+    <app-loader class="button__cell mx-auto max-w-[50%] bg-red-800" />
+    <!-- @if (isLoading) {
+      <app-loader class="button__cell" />
+    } @else {
+      <button
+        class="font__grow button__cell"
+        (click)="onClick(element().weight)"
+      >
+        {{ element().weight }}
+      </button>
+    } -->
   </div>
-  <div class="table__element">
-    @if(isLoading){
-    <app-loader />
-    }@else {
-    <button class="button" (click)="onClick(element().symbol)">
-      {{ element().symbol }}
-    </button>
-    }
+  <div class="flex flex-row items-center justify-center font-bold uppercase">
+    <app-loader class="button__cell mx-auto max-w-[50%] bg-red-800" />
+    <!-- @if (isLoading) {
+      <app-loader class="button__cell" />
+    } @else {
+      <button
+        class="font__grow button__cell"
+        (click)="onClick(element().symbol)"
+      >
+        {{ element().symbol }}
+      </button>
+    } -->
   </div>
 </div>
