@@ -8,6 +8,25 @@
     @apply text-[10px] min-[0px]:max-[230px]:text-[8px] sm:text-sm md:text-base;
   }
   .button__cell {
-    @apply block h-[100%] w-[100%] cursor-pointer border-2 border-rose-800 bg-transparent text-purple-900;
+    @apply block h-[100%] w-[100%] cursor-pointer border-2 border-rose-800 bg-pink-300 text-purple-900;
+  }
+  .centered {
+    @apply flex flex-row items-center justify-center;
   }
 }
+
+/* :root {
+  font-size: 62.5%;
+}
+html {
+ 
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+} */
