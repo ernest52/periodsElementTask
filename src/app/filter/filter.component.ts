@@ -19,12 +19,13 @@ export class FilterComponent implements OnInit {
   headers = this.taskService.getHeaders();
   isLoading = false;
   ngOnInit(): void {
-    this.taskService.filterSubjectFn().subscribe({
+    const filterSub = this.taskService.filterSubjectFn().subscribe({
       next: (filters) => {
         this.mode = filters.mode;
         this.selector = filters.selector;
       },
     });
+    this.destroyRef.onDestroy(() => filterSub.unsubscribe());
   }
   changeMode() {
     this.mode = this.mode === 'ASC' ? 'DESC' : 'ASC';
