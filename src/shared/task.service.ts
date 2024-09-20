@@ -12,14 +12,21 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class TaskService {
   private store = inject(
-    Store<{ periodElementArray: PeriodicElement[]; Loader: boolean }>
+    Store<{ periodElementArray: PeriodicElement[]; Loader: boolean }>,
   );
   private headers = 'Number,Name,Weight,Symbol'.split(',');
   private filter = signal<{ mode: ModeType; selector: SelectorType }>({
     mode: 'ASC',
     selector: 'Number',
   });
+  private filterSubject = new BehaviorSubject({
+    mode: this.filter().mode,
+    selector: this.filter().selector,
+  });
   private isLoading = new BehaviorSubject(true);
+  filterSubjectFn() {
+    return this.filterSubject.asObservable();
+  }
   getHeaders() {
     return this.headers;
   }
@@ -35,7 +42,7 @@ export class TaskService {
   updateElement(
     element: PeriodicElement,
     value: number | string,
-    newValue: string | number
+    newValue: string | number,
   ) {
     typeof value === 'number' && (newValue = Number(newValue));
     this.store.dispatch(updateElement({ element, value, newValue }));
@@ -51,6 +58,12 @@ export class TaskService {
       };
       return updated;
     });
+    this.filterSubject.next({
+      mode: this.filter().mode,
+      selector: this.filter().selector,
+    });
+  }
+  sortElements() {
     this.store.dispatch(sortElements(this.Filters()));
   }
 }

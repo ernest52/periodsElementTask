@@ -1,8 +1,8 @@
 <div
-  class="font__grow mx-auto my-0 border-2 border-pink-600 bg-pink-300 p-4 text-rose-700 md:sticky md:top-[50vh] md:ml-4 md:w-[40vw]"
+  class="font__grow mx-auto my-0 w-[70vw] border-2 border-pink-600 bg-pink-300 p-4 text-rose-700 md:sticky md:top-[50vh] md:ml-4 md:w-[40vw]"
 >
   <div
-    class="mx-[auto] my-4 w-[max-content] bg-purple-900 p-4 text-center text-slate-300 min-[0px]:max-[300px]:w-[70vw] md:w-[35vw]"
+    class="mx-[auto] my-4 bg-purple-900 p-4 text-center text-slate-300 md:w-[35vw]"
   >
     <p>table is ordered by: {{ selector }} in order: {{ mode }}</p>
   </div>
@@ -15,7 +15,9 @@
       (change)="changeSelector($event)"
     >
       @for (header of headers; track $index) {
-        <option [value]="header">{{ header }}</option>
+        <option [value]="header" [selected]="header === selector">
+          {{ header }}
+        </option>
       }
     </select>
   </div>

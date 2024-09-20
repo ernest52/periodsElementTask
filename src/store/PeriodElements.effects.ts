@@ -53,15 +53,25 @@ export class PeriodElementsEffects {
                 updated.weight =
                   element.weight === oldValue ? newValue : element.weight;
               }
-
+              updated.name === newValue &&
+                this.taskService.updateFilters(this.filter().mode, 'Name');
+              updated.position === newValue &&
+                this.taskService.updateFilters(this.filter().mode, 'Number');
+              updated.symbol === newValue &&
+                this.taskService.updateFilters(this.filter().mode, 'Symbol');
+              updated.weight === newValue &&
+                this.taskService.updateFilters(this.filter().mode, 'Weight');
               return updated;
             }
             return { ...el };
           })
           .sort((a, b) => this.sortData(a, b));
-        return of(updatedElements({ elements: updatedArray }));
-      })
-    )
+
+        return of(updatedElements({ elements: updatedArray })).pipe(
+          delay(2000),
+        );
+      }),
+    ),
   );
   sortElements = createEffect(() =>
     this.actions$.pipe(
@@ -75,8 +85,8 @@ export class PeriodElementsEffects {
           .sort((a, b) => this.sortData(a, b));
 
         return of(updatedElements({ elements: updatedArray }));
-      })
-    )
+      }),
+    ),
   );
   private sortData(a: PeriodicElement, b: PeriodicElement) {
     if (this.filter().selector === 'Number') {
