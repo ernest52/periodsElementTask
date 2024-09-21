@@ -7,25 +7,18 @@ import {
 } from './PeriodicElement.model';
 import { PeridicElementsSelector } from '../store/PeriodicElements.selectors';
 import { updateElement, sortElements } from '../store/PeriodElements.actions';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private store = inject(
-    Store<{ periodElementArray: PeriodicElement[]; Loader: boolean }>,
-  );
+  private store = inject(Store<{ periodElementArray: PeriodicElement[] }>);
   private headers = 'Number,Name,Weight,Symbol'.split(',');
   private filter = signal<{ mode: ModeType; selector: SelectorType }>({
     mode: 'ASC',
     selector: 'Number',
   });
-  private filterSubject = new BehaviorSubject({
-    mode: this.filter().mode,
-    selector: this.filter().selector,
-  });
-  private isLoading = new BehaviorSubject(true);
-  filterSubjectFn() {
-    return this.filterSubject.asObservable();
+
+  get Filters() {
+    return this.filter.asReadonly();
   }
   getHeaders() {
     return this.headers;
@@ -33,12 +26,7 @@ export class TaskService {
   getData() {
     return this.store.select(PeridicElementsSelector);
   }
-  get Loader() {
-    return this.isLoading.asObservable();
-  }
-  setLoader(value: boolean) {
-    this.isLoading.next(value);
-  }
+
   updateElement(
     element: PeriodicElement,
     value: number | string,
@@ -47,9 +35,7 @@ export class TaskService {
     typeof value === 'number' && (newValue = Number(newValue));
     this.store.dispatch(updateElement({ element, value, newValue }));
   }
-  get Filters() {
-    return this.filter.asReadonly();
-  }
+
   updateFilters(mode: ModeType, selector: SelectorType) {
     this.filter.update((old) => {
       const updated = {
@@ -58,12 +44,8 @@ export class TaskService {
       };
       return updated;
     });
-    this.filterSubject.next({
-      mode: this.filter().mode,
-      selector: this.filter().selector,
-    });
   }
   sortElements() {
-    this.store.dispatch(sortElements(this.Filters()));
+    this.store.dispatch(sortElements(this.filter()));
   }
 }

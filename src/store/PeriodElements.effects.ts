@@ -80,6 +80,8 @@ export class PeriodElementsEffects {
       delay(2000),
       switchMap(([action, elementsArray]) => {
         const { mode, selector } = action;
+        console.log('MESSAGE FROM EFFECT: ');
+        console.log(`mode: ${mode} selectro: ${selector}`);
         const updatedArray = elementsArray
           .slice()
           .sort((a, b) => this.sortData(a, b));
