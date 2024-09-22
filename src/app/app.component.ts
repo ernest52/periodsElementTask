@@ -8,6 +8,5 @@ import { FilterComponent } from './filter/filter.component';
   standalone: true,
   imports: [ElementsComponent, FilterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
 export class AppComponent {}

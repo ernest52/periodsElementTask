@@ -17,7 +17,6 @@ import { selectSlice } from '@rx-angular/state/selections';
   imports: [CommonModule],
   providers: [RxState],
   templateUrl: './filter.component.html',
-  styleUrl: './filter.component.css',
 })
 export class FilterComponent {
   taskService = inject(TaskService);
@@ -40,16 +39,12 @@ export class FilterComponent {
       mode: filter.mode === 'ASC' ? 'DESC' : 'ASC',
     }));
 
-    this.callSort();
+    this.taskService.sortElements();
   }
   changeSelector(event: Event) {
     const selectInput = event.target as HTMLSelectElement;
     const value = selectInput.value.trim() as SelectorType;
     this._state.set('filter', ({ filter }) => ({ ...filter, selector: value }));
-    this.callSort();
-  }
-  private callSort() {
-    this.taskService.updateFilters();
     this.taskService.sortElements();
   }
 }

@@ -1,8 +1,6 @@
-import { createReducer, on } from '@ngrx/store';
-import { PeriodicElement } from '../shared/PeriodicElement.model';
-import { updatedElements } from './PeriodElements.actions';
+import { PeriodicElement } from './PeriodicElement.model';
 
-const ELEMENT_DATA: PeriodicElement[] = [
+export const ELEMENT_DATA: PeriodicElement[] = [
   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
   { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
@@ -14,9 +12,3 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
   { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
 ];
-export const PeriodElementReducer = createReducer(
-  ELEMENT_DATA,
-  on(updatedElements, (state, action) => {
-    return action.elements;
-  })
-);

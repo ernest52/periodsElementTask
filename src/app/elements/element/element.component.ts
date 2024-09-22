@@ -8,7 +8,6 @@ import { TaskService } from '../../../shared/task.service';
   standalone: true,
   imports: [LoaderComponent],
   templateUrl: './element.component.html',
-  styleUrl: './element.component.css',
 })
 export class ElementComponent implements OnInit {
   element = input.required<PeriodicElement>();
