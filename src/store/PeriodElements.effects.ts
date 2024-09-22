@@ -6,14 +6,23 @@ import {
 } from './PeriodElements.actions';
 import { switchMap, of, withLatestFrom, delay } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { PeriodicElement } from '../shared/PeriodicElement.model';
+import {
+  ModeType,
+  PeriodicElement,
+  SelectorType,
+} from '../shared/PeriodicElement.model';
 import { PeridicElementsSelector } from './PeriodicElements.selectors';
 import { inject, Injectable } from '@angular/core';
 import { TaskService } from '../shared/task.service';
+import { RxState } from '@rx-angular/state';
+interface State {
+  filter: { mode: ModeType; selector: SelectorType };
+}
 @Injectable()
 export class PeriodElementsEffects {
   taskService = inject(TaskService);
-  filter = this.taskService.Filters;
+  _state: RxState<State> = this.taskService.State;
+  filter = this._state.computed(({ filter }) => filter)();
   actions$ = inject(Actions);
   store = inject(Store<{ periodElementArray: PeriodicElement[] }>);
   updateElement = createEffect(() =>
@@ -54,13 +63,30 @@ export class PeriodElementsEffects {
                   element.weight === oldValue ? newValue : element.weight;
               }
               updated.name === newValue &&
-                this.taskService.updateFilters(this.filter().mode, 'Name');
+                this._state.set('filter', ({ filter }) => ({
+                  ...filter,
+                  selector: 'Name',
+                }));
+
+              // this.taskService.updateFilters(this.filter().mode, 'Name');
               updated.position === newValue &&
-                this.taskService.updateFilters(this.filter().mode, 'Number');
+                this._state.set('filter', ({ filter }) => ({
+                  ...filter,
+                  selector: 'Number',
+                }));
+              // this.taskService.updateFilters(this.filter().mode, 'Number');
               updated.symbol === newValue &&
-                this.taskService.updateFilters(this.filter().mode, 'Symbol');
+                this._state.set('filter', ({ filter }) => ({
+                  ...filter,
+                  selector: 'Symbol',
+                }));
+              // this.taskService.updateFilters(this.filter().mode, 'Symbol');
               updated.weight === newValue &&
-                this.taskService.updateFilters(this.filter().mode, 'Weight');
+                this._state.set('filter', ({ filter }) => ({
+                  ...filter,
+                  selector: 'Weight',
+                }));
+              // this.taskService.updateFilters(this.filter().mode, 'Weight');
               return updated;
             }
             return { ...el };
@@ -78,10 +104,7 @@ export class PeriodElementsEffects {
       ofType(sortElements),
       withLatestFrom(this.store.select(PeridicElementsSelector)),
       delay(2000),
-      switchMap(([action, elementsArray]) => {
-        const { mode, selector } = action;
-        console.log('MESSAGE FROM EFFECT: ');
-        console.log(`mode: ${mode} selectro: ${selector}`);
+      switchMap(([, elementsArray]) => {
         const updatedArray = elementsArray
           .slice()
           .sort((a, b) => this.sortData(a, b));

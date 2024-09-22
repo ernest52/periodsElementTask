@@ -1,6 +1,6 @@
-import { Component, computed, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TaskService } from '../../shared/task.service';
-import { RxState, rxState } from '@rx-angular/state';
+import { RxState } from '@rx-angular/state';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -8,11 +8,8 @@ import {
   type SelectorType,
 } from '../../shared/PeriodicElement.model';
 import { map, Observable } from 'rxjs';
-
-interface State {
-  filter: { mode: ModeType; selector: SelectorType };
-  // loader: boolean;
-}
+import { type State } from '../../shared/State.model';
+import { selectSlice } from '@rx-angular/state/selections';
 
 @Component({
   selector: 'app-filter',
@@ -24,26 +21,25 @@ interface State {
 })
 export class FilterComponent {
   taskService = inject(TaskService);
-  private _state = inject(RxState<State>);
-  constructor() {
-    this._state.connect('filter', this.taskService.Filters);
-    // this._state.connect('loader', this.taskService.Loader);
-  }
+  private _state: RxState<State> = this.taskService.State;
 
-  mode$ = this._state.select(map(({ filter }) => filter.mode));
-  // mode: ModeType = this.taskService.Filters().mode;
+  mode$: Observable<ModeType> = this._state.select(
+    selectSlice(['filter']),
+    map(({ filter }) => filter.mode),
+  );
   selector$: Observable<SelectorType> = this._state.select(
+    selectSlice(['filter']),
     map(({ filter }) => filter.selector),
   );
 
   headers = this.taskService.getHeaders();
-  // isLoading = false;
 
   changeMode() {
     this._state.set('filter', ({ filter }) => ({
       ...filter,
       mode: filter.mode === 'ASC' ? 'DESC' : 'ASC',
     }));
+
     this.callSort();
   }
   changeSelector(event: Event) {
@@ -53,12 +49,7 @@ export class FilterComponent {
     this.callSort();
   }
   private callSort() {
-    const currentFilter = this._state.get('filter');
-    if (!currentFilter) return;
-    this.taskService.updateFilters(
-      currentFilter?.mode,
-      currentFilter?.selector,
-    );
+    this.taskService.updateFilters();
     this.taskService.sortElements();
   }
 }

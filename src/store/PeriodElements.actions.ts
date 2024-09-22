@@ -7,13 +7,10 @@ export const updateElement = createAction(
     element: PeriodicElement;
     value: string | number;
     newValue: string | number;
-  }>()
+  }>(),
 );
-export const sortElements = createAction(
-  '[periodElementArray] SortElements',
-  props<{ mode: string; selector: string }>()
-);
+export const sortElements = createAction('[periodElementArray] SortElements');
 export const updatedElements = createAction(
   '[periodElementArray] UpdatedElements',
-  props<{ elements: PeriodicElement[] }>()
+  props<{ elements: PeriodicElement[] }>(),
 );

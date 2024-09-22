@@ -7,8 +7,10 @@ import { provideStore } from '@ngrx/store';
 import { PeriodElementReducer } from '../store/PeriodElements.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { PeriodElementsEffects } from '../store/PeriodElements.effects';
+import { RxState } from '@rx-angular/state';
 export const appConfig: ApplicationConfig = {
   providers: [
+    RxState,
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),

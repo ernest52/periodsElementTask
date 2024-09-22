@@ -2,7 +2,7 @@
   class="mx-auto my-1 grid max-w-[90vw] grid-cols-[100px_100px_100px_100px] grid-rows-[50px] gap-1 min-[0px]:max-[220px]:grid-cols-[40px_40px_40px_40px] min-[220px]:max-[320px]:grid-cols-[50px_50px_50px_50px] min-[320px]:max-[450px]:grid-cols-[70px_70px_70px_70px] md:w-[50vw] md:grid-cols-[1fr_1fr_1fr_1fr]"
 >
   <div class="flex flex-row items-center justify-center font-bold uppercase">
-    @if (isLoading$ | async) {
+    @if (isLoading) {
       <app-loader class="button__cell centered" />
     } @else {
       <button
@@ -14,7 +14,7 @@
     }
   </div>
   <div class="flex flex-row items-center justify-center font-bold uppercase">
-    @if (isLoading$ | async) {
+    @if (isLoading) {
       <app-loader class="button__cell centered" />
     } @else {
       <button class="font__grow button__cell" (click)="onClick(element().name)">
@@ -23,7 +23,7 @@
     }
   </div>
   <div class="flex flex-row items-center justify-center font-bold uppercase">
-    @if (isLoading$ | async) {
+    @if (isLoading) {
       <app-loader class="button__cell centered" />
     } @else {
       <button
@@ -35,7 +35,7 @@
     }
   </div>
   <div class="flex flex-row items-center justify-center font-bold uppercase">
-    @if (isLoading$ | async) {
+    @if (isLoading) {
       <app-loader class="button__cell centered" />
     } @else {
       <button

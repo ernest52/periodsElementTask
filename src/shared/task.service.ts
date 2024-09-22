@@ -1,5 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { RxState } from '@rx-angular/state';
 import {
   type ModeType,
   type SelectorType,
@@ -7,18 +8,25 @@ import {
 } from './PeriodicElement.model';
 import { PeridicElementsSelector } from '../store/PeriodicElements.selectors';
 import { updateElement, sortElements } from '../store/PeriodElements.actions';
+import { type State } from './State.model';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
   private store = inject(Store<{ periodElementArray: PeriodicElement[] }>);
+  private _state: RxState<State> = inject(RxState<State>);
   private headers = 'Number,Name,Weight,Symbol'.split(',');
-  private filter = signal<{ mode: ModeType; selector: SelectorType }>({
-    mode: 'ASC',
-    selector: 'Number',
-  });
+
+  constructor() {
+    this._state.set((state) => ({
+      filter: { mode: 'ASC', selector: 'Number' },
+    }));
+  }
+  get State() {
+    return this._state;
+  }
 
   get Filters() {
-    return this.filter.asReadonly();
+    return this._state.select('filter');
   }
   getHeaders() {
     return this.headers;
@@ -36,16 +44,12 @@ export class TaskService {
     this.store.dispatch(updateElement({ element, value, newValue }));
   }
 
-  updateFilters(mode: ModeType, selector: SelectorType) {
-    this.filter.update((old) => {
-      const updated = {
-        mode: mode !== old.mode ? mode : old.mode,
-        selector: selector !== old.selector ? selector : old.selector,
-      };
-      return updated;
-    });
+  updateFilters() {
+    const currentFilter = this._state.get('filter');
+    console.log('MESSAGE FROM SERVICE: ');
+    console.log('CURRENT FILTERS: ', currentFilter);
   }
   sortElements() {
-    this.store.dispatch(sortElements(this.filter()));
+    this.store.dispatch(sortElements());
   }
 }
